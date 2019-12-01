@@ -22,7 +22,7 @@ Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
 
-Route.get('/albums', async () => {
+Route.get('/albums', async ({request}) => {
   const albums = await Album.query()
     .orderBy('id', 'desc')
     .fetch()
@@ -62,7 +62,7 @@ Route.put('/albums/:id/image', async ({ request, params }) => {
     name: `${new Date().getTime()}.jpg`,
   })
 
-  const pathImage = `http://localhost:3333/public/uploads/${image.fileName}`
+  const pathImage = `http://localhost:3333/uploads/${image.fileName}`
 
   const album = await Album.find(params.id)
   album.image = pathImage
